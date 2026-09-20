@@ -300,8 +300,9 @@ Because an event is committed to SQLite *before* publishing to `RunBus`, subscri
    - *Trade-off:* Half-duplex. Client sends user actions via standard HTTP `POST` and receives events via SSE. This decouples message submission from stream consumption.
 
 3. **Explicit Query Parameter Cursor (`?cursor=<seq>`) over browser `Last-Event-ID`**:
-   - *Why:* While browser `EventSource` automatically passes `Last-Event-ID` on native reconnections, relying solely on browser internals makes client recovery opaque and untestable in programmatic environments. Making `cursor` an explicit application-level parameter puts deterministic control into `ConnectionManager`.
-   - *Trade-off:* Minor application-level boilerplate to track `lastSeq` on client.
+   - *Why:* `Last-Event-ID` is only guaranteed to be sent by the browser on server-initiated closes; network drops and proxy resets do not reliably trigger the header. The value is also controlled by the SSE `id:` field — if the first frame hasn't been received yet, the header silently falls back to an empty string. Using an explicit `?cursor=<seq>` query parameter means reconnect correctness is fully in application control and 100% testable without a live browser.
+   - *Belt-and-suspenders:* The `id:` SSE field is still written on every frame to keep `Last-Event-ID` in sync as a free fallback. The server reads `?cursor`, not the header.
+   - *Trade-off:* Minor application-level boilerplate to track `lastSeq` in `ConnectionManager`; cursor is visible in logs and URLs (useful for debugging, not a security concern for this use case).
 
 4. **Vanilla TypeScript + Vite over React/Next.js**:
    - *Why:* Per the challenge brief, visual design is not scored. A lightweight TypeScript client with zero framework overhead makes connection states, backoff timers, and buffer assembly completely transparent and verifiable.
