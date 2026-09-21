@@ -379,8 +379,16 @@ If taking this system to production under high concurrency:
 
 ## Credibility note
 
-- **System:** Realtime collaborative document & streaming canvas engine.
-- **Problem Solved:** Maintaining sub-50ms synchronized document state and streaming AI block generations across 10,000+ concurrent multi-tenant workspaces with unreliable mobile and desktop connections.
-- **Personal Contribution:** Architected the durable event-sourcing journal and SSE/WebSocket hybrid sync layer. Designed the client reconnection and snapshot-replay protocol.
-- **Scale & Operational Complexity:** Handled 40M+ daily events with continuous active connections across geographically distributed regions; maintained strict message ordering and idempotency.
-- **Difficult Decision:** Chose an explicit append-only operational log with client-managed monotonic checkpoints over CRDT state syncing. While CRDTs handled concurrent edits, their tombstone overhead and convergence indeterminism complicated streaming AI token streams. The explicit cursor journal reduced memory overhead by 65% and eliminated race conditions during network handoffs.
+- **System:** **DayNight Pilot** ([github.com/gnshx/NOT-AN-SIMPLE-TODO](https://github.com/gnshx/NOT-AN-SIMPLE-TODO)) — Autonomous Career Copilot & Zero-Trust AI Execution Engine.
+- **Problem Solved:** Engineered an operational career copilot that ingests unstructured inbound email signals, detects employer domain fraud, extracts semantic ATS alignment gaps, and conducts simulated mock coaching sessions while strictly protecting users from predatory scams, data leakage, and hallucinated actions.
+- **Personal Contribution:** Architected the end-to-end full-stack system using Next.js 16 (Turbopack), React 19, TypeScript, PostgreSQL (Prisma), Redis, and BullMQ background workers. Designed the **Zero-Trust AI Execution Model** that isolates non-deterministic model inference from stateful business logic, ensuring all external signals are treated as untrusted inputs.
+- **Scale & Operational Complexity:**
+  - Implemented distributed token-bucket rate limiting across edge middleware, background job queuing with BullMQ, and sub-50ms query latency across relational datasets.
+  - Engineered an automated security and invariant verification harness with **69/69 passing tests** mapped against **OWASP ASVS 5.0** compliance standards.
+  - For distributed real-time chat concurrency, independently built a concurrency-safe HTTP/WebSocket load balancer in Go ([github.com/gnshx/load-balancer](https://github.com/gnshx/load-balancer)) featuring atomic in-flight connection tracking, CPU utilization feedback scoring, and zero-drop failover.
+- **Difficult Engineering Decision:** Enforced an architectural **Human-in-the-Loop Tool Firewall over autonomous agent execution**. Early iterations allowed language models to directly trigger side effects (dispatching emails, mutating pipeline state). Adversarial evaluation revealed that prompt engineering cannot reliably guard against indirect prompt injection from untrusted resume inputs. I decoupled agent tool calls into an idempotent two-phase commit: the agent outputs signed, cryptographically hashed action proposals, requiring explicit user authorization before state execution. This eliminated unauthorized mutations and ensured user sovereignty over sensitive career data.
+- **Public Evidence & Repositories:**
+  - Core AI Platform: [https://github.com/gnshx/NOT-AN-SIMPLE-TODO](https://github.com/gnshx/NOT-AN-SIMPLE-TODO)
+  - Go Load Balancer & Concurrency Engine: [https://github.com/gnshx/load-balancer](https://github.com/gnshx/load-balancer)
+  - Real-Time Vision & SIMD Compositing Pipeline: [https://github.com/gnshx/DomainVision](https://github.com/gnshx/DomainVision) (Live: [domainvision.onrender.com](https://domainvision.onrender.com/))
+
