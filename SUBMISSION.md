@@ -6,7 +6,7 @@
 - **Email:** devisaiganeshn@gmail.com
 - **GitHub:** https://github.com/gnshx
 - **Selected problem:** Problem 1: Resumable Realtime Conversation
-- **Demo video:** [Loom Video Link — Click Here](https://www.loom.com/share/placeholder-resumable-conversation-demo) *(Demo recording covering all checklist items below)*
+- **Demo video:** [Google Drive Demo Video — Click Here](https://drive.google.com/file/d/1Ilk4Ne8-j62UaAkOznrSJnFnqGIeXaAq/view?usp=drive_link) *(Full walkthrough covering live streaming, disconnect simulation, SQLite replay, and server restart recovery)*
 
 ---
 
