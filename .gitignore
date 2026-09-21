@@ -5,3 +5,5 @@ dist/
 *.db-wal
 .env
 .env.*
+*.mp4
+*.webm
